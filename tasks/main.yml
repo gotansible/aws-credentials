@@ -22,7 +22,7 @@
     dest: ~/.aws/credentials
     section: "{{ aws_credentials_section }}"
     option: aws_access_key_id
-    value: "{{ aws_credentials_access_key }}"
+    value: "{{ aws_credentials_access_key if aws_credentials_access_key|length > 0 else lookup('ini','aws_access_key_id section=' + aws_credentials_profile|default('default') + ' file=~/.aws/credentials ') }}"
     backup: no
 
 - name: aws-credentials - set .aws/credentials values
@@ -32,5 +32,7 @@
     dest: ~/.aws/credentials
     section: "{{ aws_credentials_section }}"
     option: aws_secret_access_key
-    value: "{{ aws_credentials_secret_access_key }}"
+    # only look up if the if the aws_credentials_access_key was provided, otherwise, the fact that this value is empty does not mean that we need to look it up
+    # it's important to not change this, otherwise, it introduce a security hole
+    value: "{{ aws_credentials_secret_access_key if aws_credentials_access_key|length > 0 else lookup('ini','aws_secret_access_key section=' + aws_credentials_profile|default('default') + ' file=~/.aws/credentials ') }}"
     backup: no

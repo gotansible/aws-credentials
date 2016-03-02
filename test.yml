@@ -7,3 +7,11 @@
       aws_credentials_section: default
       aws_credentials_access_key: blah
       aws_credentials_secret_access_key: blah_bla
+
+    #this will only work if aws credentials have been configured on the box that is running this
+    - role: aws-credentials
+      aws_credentials_user: vagrant
+      aws_credentials_section: real
+      aws_credentials_access_key: ''
+      aws_credentials_secret_access_key: ''
+      aws_credentials_profile: default
