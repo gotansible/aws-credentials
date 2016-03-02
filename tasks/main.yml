@@ -1,0 +1,36 @@
+---
+
+- name: aws-credentials - ensure .aws/ folder exists
+  become: true
+  become_user: "{{ aws_credentials_user }}"
+  file:
+    state=directory
+    path=~/.aws
+
+
+- name: aws-credentials - ensure .aws/credentials file exists
+  become: true
+  become_user: "{{ aws_credentials_user }}"
+  file:
+    state=touch
+    path=~/.aws/credentials
+
+- name: aws-credentials - set .aws/credentials key=access_key
+  become: true
+  become_user: "{{ aws_credentials_user }}"
+  ini_file:
+    dest: ~/.aws/credentials
+    section: "{{ aws_credentials_section }}"
+    option: aws_access_key_id
+    value: "{{ aws_credentials_access_key }}"
+    backup: no
+
+- name: aws-credentials - set .aws/credentials values
+  become: true
+  become_user: "{{ aws_credentials_user }}"
+  ini_file:
+    dest: ~/.aws/credentials
+    section: "{{ aws_credentials_section }}"
+    option: aws_secret_access_key
+    value: "{{ aws_credentials_secret_access_key }}"
+    backup: no

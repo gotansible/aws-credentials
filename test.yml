@@ -1,0 +1,9 @@
+---
+- hosts: all
+  sudo: true
+  roles:
+    - role: aws-credentials
+      aws_credentials_user: vagrant
+      aws_credentials_section: default
+      aws_credentials_access_key: blah
+      aws_credentials_secret_access_key: blah_bla
