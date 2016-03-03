@@ -1,38 +1,30 @@
 ---
 
 - name: aws-credentials - ensure .aws/ folder exists
-  become: true
-  become_user: "{{ aws_credentials_user }}"
   file:
     state=directory
-    path=~/.aws
-
-
-- name: aws-credentials - ensure .aws/credentials file exists
-  become: true
-  become_user: "{{ aws_credentials_user }}"
-  file:
-    state=touch
-    path=~/.aws/credentials
+    path=/home/{{ aws_credentials_user }}/.aws
+    owner={{ aws_credentials_user }}
+    group={{ aws_credentials_group }}
 
 - name: aws-credentials - set .aws/credentials key=access_key
-  become: true
-  become_user: "{{ aws_credentials_user }}"
   ini_file:
-    dest: ~/.aws/credentials
+    dest: /home/{{ aws_credentials_user }}/.aws/credentials
     section: "{{ aws_credentials_section }}"
     option: aws_access_key_id
     value: "{{ aws_credentials_access_key if aws_credentials_access_key|length > 0 else lookup('ini','aws_access_key_id section=' + aws_credentials_profile|default('default') + ' file=~/.aws/credentials ') }}"
     backup: no
+    owner: "{{ aws_credentials_user }}"
+    group: "{{ aws_credentials_group }}"
 
 - name: aws-credentials - set .aws/credentials values
-  become: true
-  become_user: "{{ aws_credentials_user }}"
   ini_file:
-    dest: ~/.aws/credentials
+    dest: /home/{{ aws_credentials_user }}/.aws/credentials
     section: "{{ aws_credentials_section }}"
     option: aws_secret_access_key
     # only look up if the if the aws_credentials_access_key was provided, otherwise, the fact that this value is empty does not mean that we need to look it up
     # it's important to not change this, otherwise, it introduce a security hole
     value: "{{ aws_credentials_secret_access_key if aws_credentials_access_key|length > 0 else lookup('ini','aws_secret_access_key section=' + aws_credentials_profile|default('default') + ' file=~/.aws/credentials ') }}"
     backup: no
+    owner: "{{ aws_credentials_user }}"
+    group: "{{ aws_credentials_group }}"
