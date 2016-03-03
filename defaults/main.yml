@@ -1,7 +1,7 @@
 ---
 
 aws_credentials_user: root
-aws_credentials_group: {{ aws_credentials_user }}
+aws_credentials_group: "{{ aws_credentials_user }}"
 aws_credentials_section: default
 aws_credentials_access_key: ""
 aws_credentials_secret_access_key: ""
