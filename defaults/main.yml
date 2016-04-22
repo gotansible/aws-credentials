@@ -6,5 +6,5 @@ aws_credentials_group: "{{ aws_credentials_user }}"
 aws_credentials_access_key: ""
 aws_credentials_secret_access_key: ""
 
-aws_credentials_profile_source: default
+aws_credentials_profile_source: ""
 aws_credentials_profile_destination: default
