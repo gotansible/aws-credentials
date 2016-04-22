@@ -1,12 +1,24 @@
 aws-credentials
 =========
 
-A brief description of aws-credentials goes here.
+Install aws credentials onto a destination machine.  ~/.aws/credentials is the location for boto and other system libraries to look for credentials.
+
+There are two ways that credentials are obtained to put on the machine.
+
+** Explicitly with the following variabile **
+
+* aws_credentials_access_key 
+* aws_credentials_secret_access_key
+
+** Implicitly using a source AWS profile that is setup on the host. **
+
+* aws_credentials_profile_source
+* aws_credentials_profile_destination
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+For testing requires aws configure to have been run on the host machine. 
 
 Role Variables
 --------------

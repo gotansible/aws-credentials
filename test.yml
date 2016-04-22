@@ -5,7 +5,7 @@
     - role: aws-credentials
       aws_credentials_user: vagrant
       aws_credentials_group: vagrant
-      aws_credentials_section: default
+      aws_credentials_profile_destination: default
       aws_credentials_access_key: blah
       aws_credentials_secret_access_key: blah_bla
 
@@ -13,7 +13,7 @@
     - role: aws-credentials
       aws_credentials_user: vagrant
       aws_credentials_group: vagrant
-      aws_credentials_section: real
       aws_credentials_access_key: ''
       aws_credentials_secret_access_key: ''
-      aws_credentials_profile: default
+      aws_credentials_profile_destination: real
+      aws_credentials_profile_source: default
