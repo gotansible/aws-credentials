@@ -7,7 +7,6 @@
     owner={{ aws_credentials_user }}
     group={{ aws_credentials_group }}
     mode=0750
-  become_user: '{{ aws_credentials_user }}'
 
 - name: aws-credentials - set .aws/credentials key=access_key
   ini_file:
@@ -19,7 +18,6 @@
     owner: "{{ aws_credentials_user }}"
     group: "{{ aws_credentials_group }}"
     mode: 0750
-  become_user: '{{ aws_credentials_user }}'
 
 - name: aws-credentials - set .aws/credentials values
   ini_file:
@@ -33,4 +31,3 @@
     owner: "{{ aws_credentials_user }}"
     group: "{{ aws_credentials_group }}"
     mode: 0750
-  become_user: '{{ aws_credentials_user }}'
