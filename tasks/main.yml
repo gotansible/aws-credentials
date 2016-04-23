@@ -3,7 +3,7 @@
 - name: aws-credentials - ensure .aws/ folder exists
   file:
     state=directory
-    path=~/{{ aws_credentials_user }}/.aws
+    path=~/.aws
     owner={{ aws_credentials_user }}
     group={{ aws_credentials_group }}
     mode=0750
