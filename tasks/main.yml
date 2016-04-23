@@ -3,14 +3,15 @@
 - name: aws-credentials - ensure .aws/ folder exists
   file:
     state=directory
-    path=/home/{{ aws_credentials_user }}/.aws
+    path=~/{{ aws_credentials_user }}/.aws
     owner={{ aws_credentials_user }}
     group={{ aws_credentials_group }}
     mode=0750
+  become_user: "{{ aws_credentials_user }}"
 
 - name: aws-credentials - set .aws/credentials key=access_key
   ini_file:
-    dest: /home/{{ aws_credentials_user }}/.aws/credentials
+    dest: ~/.aws/credentials
     section: "{{ aws_credentials_profile_destination }}"
     option: aws_access_key_id
     value: "{{ aws_credentials_access_key if aws_credentials_access_key|length > 0 else lookup('ini','aws_access_key_id section=' + aws_credentials_profile_source|default('default') + ' file=~/.aws/credentials ') }}"
@@ -18,10 +19,11 @@
     owner: "{{ aws_credentials_user }}"
     group: "{{ aws_credentials_group }}"
     mode: 0750
+  become_user: "{{ aws_credentials_user }}"
 
 - name: aws-credentials - set .aws/credentials values
   ini_file:
-    dest: /home/{{ aws_credentials_user }}/.aws/credentials
+    dest: ~/.aws/credentials
     section: "{{ aws_credentials_profile_destination }}"
     option: aws_secret_access_key
     # only look up if the if the aws_credentials_access_key was provided, otherwise, the fact that this value is empty does not mean that we need to look it up
@@ -31,3 +33,4 @@
     owner: "{{ aws_credentials_user }}"
     group: "{{ aws_credentials_group }}"
     mode: 0750
+  become_user: "{{ aws_credentials_user }}"
